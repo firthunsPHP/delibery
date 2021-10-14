@@ -80,6 +80,7 @@ class CategoriaController extends  AbstractController
         // la info la tiene que devolver en json..., asi que
         // creamos un array []
         $categoriasAsArray = [];
+
         foreach ( $categorias as $cat){
             $categoriasAsArray[] = [
               'id' => $cat->getId(),
@@ -100,7 +101,7 @@ class CategoriaController extends  AbstractController
      * @Route ("/categoria", name="create_categoria")
      */
 
-    public function  crearCategoria(Request $request, EntityManagerInterface  $em){
+    public function  createCategoria(Request $request, EntityManagerInterface  $em){
 
         $nombre = $request->get('categoria');
         $response = new JsonResponse();

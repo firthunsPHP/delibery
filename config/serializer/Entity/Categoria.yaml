@@ -2,6 +2,6 @@ App\Entity\Categoria:
     attributes:
         id:
             groups: ['categoria']
+
         categoria:
             groups: ['categoria','categoria_list']
-            serialized_name: categoria_name
