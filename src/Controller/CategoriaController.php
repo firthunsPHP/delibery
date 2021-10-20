@@ -69,6 +69,7 @@ class CategoriaController extends  AbstractController
 ////     el resultado lo veriamos en el directorio var>log> dev.log
 //        return $response;
 //    }
+// ESTE ARCHIVO YA NO LO VAMOS A UTILIZAR
     /**
      * @Route("/categoria/list" , name="categoria_list" )
      */
