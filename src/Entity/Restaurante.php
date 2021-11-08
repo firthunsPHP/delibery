@@ -87,6 +87,7 @@ class Restaurante
         $this->comentarios = new ArrayCollection();
         $this->platos = new ArrayCollection();
         $this->horarios = new ArrayCollection();
+        $this->valoracionMedia = 0.0;
     }
 
     public function getId(): ?int

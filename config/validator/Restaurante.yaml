@@ -1,0 +1,5 @@
+App\Entity\Restaurante:
+  properties:
+    nombre:
+      - NotBlank:
+          message: 'El nombre no puede estar vacío'

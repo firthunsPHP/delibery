@@ -86,14 +86,18 @@ class RestaurantesController extends AbstractFOSRestController
         // le decimos al formulario que maneje la request
         $form->handleRequest($request);
 
-        // comprobar que se ha submiteado y si es valido
-        if($form->isSubmitted() && $form->isValid()){
-            $this->em->persist($restaurante);
-            $this->em->flush();
-            return $restaurante;
+//        Principio de negacion
+        //comprobar que se ha submiteado y si esvalido
+        if(!$form->isSubmitted() || !$form-> isValid()){
+            //devolver un mensajes de erro
+            return $form;
         }
 
-        return $form;
+
+        $this->em->persist($restaurante);
+        $this->em->flush();
+
+        return $restaurante;
     }
 
 }

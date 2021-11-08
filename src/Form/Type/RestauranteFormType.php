@@ -23,13 +23,11 @@ class RestauranteFormType extends AbstractType
                'required' => false
            ])
            ->add( 'valoracionMedia', NumberType::class, [
-               'required'=> false,
-               'empty_data'=> 0.0
+               'required'=> false
+
            ])
            ->add( 'destacado', CheckboxType::class, [
-               'data'=> false,
-               'required'=> false,
-               'empty_data' => false
+
            ]);
     }
     public function configureOptions(OptionsResolver $resolver)
@@ -37,6 +35,16 @@ class RestauranteFormType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Restaurante::class
         ]);
+    }
+
+    public function  getBlockPrefix()
+    {
+        return '';
+    }
+
+
+    public function  getName(){
+        return '';
     }
 
 }
