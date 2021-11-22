@@ -42,7 +42,7 @@ class Restaurante
     /**
      * @ORM\Column(type="boolean")
      */
-    private $destacado;
+    private $destacado; // false -> 0
 
     /**
      * @ORM\Column(type="float", nullable=true)
@@ -162,7 +162,7 @@ class Restaurante
 
     public function setValoracionMedia(?float $valoracionMedia): self
     {
-        $this->valoracionMedia = $valoracionMedia;
+        $this->valoracionMedia = $valoracionMedia ?? 0.0;
 
         return $this;
     }

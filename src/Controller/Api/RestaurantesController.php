@@ -44,10 +44,10 @@ class RestaurantesController extends AbstractFOSRestController
 
     }
 
-    // devolver un restaurante
+    // devolver un restaurante por id
     /**
      * @Rest\Get (path="/restaurante/{id}")
-     * @Rest\View (serializerGroups={"restaurante"}, serializerEnableMaxDepthChecks=true)
+     * @Rest\View (serializerGroups={"restaurante_id"}, serializerEnableMaxDepthChecks=true)
      *
      */
 
@@ -60,7 +60,7 @@ class RestaurantesController extends AbstractFOSRestController
         if(!$id){
             return new Response('not id send', Response::HTTP_BAD_REQUEST);
         }
-        $restaurante = $this->restauranteRepository->findOneBy( $id );
+        $restaurante = $this->restauranteRepository->find( $id );
 
         if(!$restaurante){
             return new Response('Not found', Response::HTTP_NOT_FOUND);
@@ -80,6 +80,8 @@ class RestaurantesController extends AbstractFOSRestController
     public function restauranteCreate(request $request){
 
         $restaurante= new Restaurante();
+        $restaurante->setValoracionMedia(intval(0));
+
         //Crear un form, este recibe dos argumentos:
         // el tipo formulario, y el objeto al que va asociado
         $form = $this->createForm(RestauranteFormType::class, $restaurante);

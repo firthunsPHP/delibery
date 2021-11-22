@@ -1,0 +1,10 @@
+App\Entity\HorarioRestaurante:
+  attributes:
+    id:
+      groups: ['horario']
+    dia:
+      groups: ['horario']
+    apertura:
+      groups: ['horario']
+    cierre:
+      groups: ['horario']
