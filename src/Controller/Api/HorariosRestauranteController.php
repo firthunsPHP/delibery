@@ -33,6 +33,7 @@ class HorariosRestauranteController extends AbstractApiController
     {
         // vamos a crear -> formType de horarios
         $form = $this->buildForm(HorarioRestauranteFormType::class);
+//        Formulario manejame el request
         $form-> handleRequest($request);
         if(!$form->isSubmitted() || !$form-> isValid() ){
             return new Response('Datos incorrectos', Response:: HTTP_BAD_REQUEST);

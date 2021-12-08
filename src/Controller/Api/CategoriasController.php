@@ -5,10 +5,12 @@ namespace App\Controller\Api;
 use App\Entity\Categoria;
 use App\Form\Type\CategoriaFormType;
 use App\Repository\CategoriaRepository;
+use App\Repository\RestauranteRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class CategoriasController extends AbstractFOSRestController
 {
@@ -55,5 +57,28 @@ class CategoriasController extends AbstractFOSRestController
 
 
     }
+
+
+    /**
+     * @Rest\Post(path="/restaurante/categoria")
+     * @Rest\View (serializerGroups={"categoria_restaurante"}, serializerEnableMaxDepthChecks= true)
+     */
+
+    public function restauranteAddCategoria(Request $request, RestauranteRepository $restauranteRepository){
+        $res = $request->get('restaurante');
+        $categorias = $request->get('categorias');
+        $restaurante = $restauranteRepository->find($res);
+        foreach ($categorias as $cat){
+            $categoria =$this->catRepository->find($cat);
+            if(!$cat){
+                return new Response('Not found', Response::HTTP_NOT_FOUND);
+            }
+            $restaurante->addCategoria($categoria);
+        }
+        $this->em->persist($restaurante);
+        $this->em->flush();
+        return $restaurante;
+    }
+
 
 }

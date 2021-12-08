@@ -1,7 +1,7 @@
 App\Entity\Restaurante:
     attributes:
         id:
-            groups: ['restaurante', 'restaurante_list', 'restaurante_id']
+            groups: ['restaurante', 'restaurante_list', 'restaurante_id', 'restaurante_horarios']
         nombre:
             groups: [ 'restaurante_list' , 'restaurante_id']
         valoracionMedia:
@@ -10,3 +10,7 @@ App\Entity\Restaurante:
             groups: [  'restaurante_id' ]
         imagenUrl:
             groups: [ 'restaurante_id' ]
+        horarios:
+            groups: ['restaurante_horarios']
+        categorias:
+            groups: ['categoria_restaurante']

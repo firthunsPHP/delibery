@@ -13,6 +13,11 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+
+
+/**
+ * @Rest\Route("/restaurante")
+ */
 class RestaurantesController extends AbstractFOSRestController
 {
         private $restauranteRepository;
@@ -28,7 +33,7 @@ class RestaurantesController extends AbstractFOSRestController
 // devolver listado de restaurante
 
     /**
-     * @Rest\Get  ( path="/restaurante/list")
+     * @Rest\Get (path="/list")
      * @Rest\View (serializerGroups={"restaurante_list"}, serializerEnableMaxDepthChecks=true)
      */
     // serializerEnableMaxDepthChecks=true -> evita que se comentan bucles
@@ -46,7 +51,7 @@ class RestaurantesController extends AbstractFOSRestController
 
     // devolver un restaurante por id
     /**
-     * @Rest\Get (path="/restaurante/{id}")
+     * @Rest\Get (path="/{id}")
      * @Rest\View (serializerGroups={"restaurante_id"}, serializerEnableMaxDepthChecks=true)
      *
      */
@@ -72,8 +77,8 @@ class RestaurantesController extends AbstractFOSRestController
     }
 
     /**
-     * @Rest\Post (path="/restaurante")
-     * @Rest\View (serializerGroups={"restaurante"}, serializerEnableMaxDepthChecks=true)
+     * @Rest\Post (path="")
+     * @Rest\View  (serializerGroups={"restaurante"} ,serializerEnableMaxDepthChecks=true)
      *
      */
 
@@ -100,6 +105,25 @@ class RestaurantesController extends AbstractFOSRestController
         $this->em->flush();
 
         return $restaurante;
+    }
+
+    /**
+     * @Rest\Get (path="/horarios/{id}")
+     * @Rest\View (serializerGroups={"restaurante_horarios"}, serializerEnableMaxDepthChecks=true)
+     */
+
+    public function getHorariosRestaurante(Request $request){
+
+        $id = $request->get('id');
+        if(!$id){
+            return new Response('No id send', Response::HTTP_BAD_REQUEST);
+        }
+        $restauranteHorarios = $this->restauranteRepository->find($id);
+        if(!$restauranteHorarios){
+            return new Response('Not found', Response::HTTP_NOT_FOUND);
+        }
+        return $restauranteHorarios;
+
     }
 
 }
