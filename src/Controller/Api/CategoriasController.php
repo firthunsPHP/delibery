@@ -80,5 +80,30 @@ class CategoriasController extends AbstractFOSRestController
         return $restaurante;
     }
 
+    /**
+     * @Rest\Post (path="/categorias/remove/restaurante")
+     * @Rest\View (serializerEnableMaxDepthChecks=true)
+     */
+
+    public function removeCategoriaRestaurante(Request $request,  RestauranteRepository $restauranteRepository){
+        $categoria = $request-> get('categoria');
+        $restaurante = $request-> get('restaurante');
+
+        if(!$categoria || !$restaurante){
+            return new Response( 'Bad request', Response::HTTP_BAD_REQUEST);
+        }
+
+        $restaurante = $restauranteRepository->find($restaurante);
+        $categoria = $this->catRespository->find($categoria);
+
+        if(!$categoria || !$restaurante){
+         return  new Response('Not found', Response::HTTP_NOT_FOUND);
+        }
+
+        $restaurante->removeCategoria($categoria);
+        $this->em->persist($restaurante);
+        $this->em->flush();
+        return new Response('ok', Response::HTTP_OK);
+    }
 
 }

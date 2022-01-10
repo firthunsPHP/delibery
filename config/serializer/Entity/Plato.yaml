@@ -1,0 +1,4 @@
+App\Entity\Plato:
+  attributes:
+    id:
+      groups: ['plato']

@@ -126,4 +126,21 @@ class RestaurantesController extends AbstractFOSRestController
 
     }
 
+    /**
+     * @Rest\Post  (path="/filtered")
+     * @Rest\View (serializerGroups={"restaurante_list"}, serializerEnableMaxDepthChecks=true)
+     */
+
+    public function restauranteBy(Request $request){
+        $dia = $request->get('dia');
+        $hora = $request->get('hora');
+        $idMunicipio = $request->get('municipio');
+
+        $restaurantes = $this-> restauranteRepository->findByDayAndTime($dia, $hora, $idMunicipio);
+        if(!$restaurantes){
+            return new Response('Not Found', Response::HTTP_NOT_FOUND);
+        }
+        return $restaurantes;
+    }
+
 }

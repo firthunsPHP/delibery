@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Restaurante;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Query\Parameter;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,7 +20,7 @@ class RestauranteRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Restaurante::class);
     }
-
+// https://www.doctrine-project.org/projects/doctrine-orm/en/2.9/reference/query-builder.html#the-querybuilder
     // /**
     //  * @return Restaurante[] Returns an array of Restaurante objects
     //  */
@@ -47,4 +49,26 @@ class RestauranteRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findByDayAndTime($dia, $hora, $idMunicipio){
+
+        return $this->createQueryBuilder('r')
+            -> join('r.horarios', 'h')
+            ->join('r.municipiosReparto','m')
+            ->where('m.id = :idMunicipio')
+            ->andWhere('h.dia = :dia')
+            ->andWhere('h.apertura <= :hora')
+            ->andWhere('h.cierre >= :hora')
+            ->setParameters( new ArrayCollection(
+                array(
+                    new Parameter( 'idMunicipio', $idMunicipio),
+                    new Parameter( 'dia', $dia),
+                    new Parameter( 'hora', $hora)
+                )
+            ))
+            ->orderBy('r.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
 }
